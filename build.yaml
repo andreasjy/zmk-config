@@ -3,3 +3,5 @@ include:
     shield: corne_left
   - board: nice_nano@2
     shield: corne_right
+  - board: nice_nano@2
+    shield: settings_reset
