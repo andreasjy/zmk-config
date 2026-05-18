@@ -15,6 +15,7 @@
 #define NUM 2
 #define NAV 3
 #define ADJ 4
+#define TAB 5
 
 // Key positions reference (Corne, 42 keys):
 //
@@ -52,14 +53,15 @@
         };
 
         // Shift home row mod - LEFT hand (D key)
-        // No require-prior-idle-ms so shift works during fast typing
-        // Shorter tapping-term for snappy capitalization
+        // tap-preferred flavor + short prior-idle prevents D->S rolling misfires
+        // while still allowing intentional shift+letter combos
         hmls: home_row_mod_left_shift {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
             quick-tap-ms = <175>;
-            flavor = "balanced";
+            require-prior-idle-ms = <125>;
+            flavor = "tap-preferred";
             hold-trigger-key-positions = <6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 39 40 41>;
             hold-trigger-on-release;
             bindings = <&kp>, <&kp>;
@@ -179,7 +181,7 @@
             bindings = <
 &cv LC(V) LC(C)  &kp Q       &kp W       &kp E        &kp R        &kp T               &kp Y    &kp U        &kp I        &kp O       &kp P          &kp LBKT
 &kp ESC          &hml LGUI A &hml LALT S &hmls LSHFT D &hmlc LCTRL F &kp G               &kp H    &hmr LCTRL J &hmrs RSHFT K &hmr LALT L &hmr RGUI SEMI &kp SQT
-&kp TAB          &kp Z       &kp X       &kp C        &kp V        &kp B               &kp N    &kp M        &kp COMMA    &kp DOT     &kp FSLH       &kp BSPC
+&kp TAB          &kp Z       &lt TAB X    &kp C        &kp V        &kp B               &kp N    &kp M        &kp COMMA    &lt TAB DOT &kp FSLH       &kp BSPC
                                          &kp LGUI     &lt NUM RET  &lt SYM BSPC        &lt SYM SPACE  &lt NAV RET  &kp RALT
             >;
         };
@@ -190,7 +192,7 @@
 &trans  &kp GRAVE  &kp AT     &kp HASH  &kp DLLR  &kp TILDE        &kp CARET &kp LBRC  &kp RBRC  &kp UNDER &kp PLUS  &trans
 &trans  &kp EXCL   &trans     &kp LT    &kp GT    &kp PRCNT        &kp AMPS  &kp LPAR  &kp RPAR  &kp MINUS &kp EQUAL &trans
 &trans  &trans     &trans     &kp BSLH  &kp PIPE  &trans           &trans    &kp LBKT  &kp RBKT  &kp ASTRK &trans    &trans
-                              &trans    &trans    &trans           &trans    &trans    &trans
+                              &trans    &trans    &trans           &kp BSPC  &trans    &trans
             >;
         };
 
@@ -226,6 +228,17 @@
 &bootloader &out OUT_USB &out OUT_BLE &arrow       &fat_arrow   &none          &kp C_MUTE  &kp C_VOL_DN &kp C_VOL_UP &kp F11   &kp F12  &none
 &trans      &none        &none        &none        &none        &none          &kp C_PREV  &kp C_PP     &kp C_NEXT   &none     &none    &trans
                                       &trans       &trans       &trans         &trans      &trans       &trans
+            >;
+        };
+
+        // Tab layer (held via X or DOT)
+        // Middle thumbs send Tab when this layer is active
+        tab_layer {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans       &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans       &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans       &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &kp TAB &trans       &trans  &kp TAB &trans
             >;
         };
     };
