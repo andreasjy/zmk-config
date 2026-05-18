@@ -16,6 +16,7 @@
 #define NAV 3
 #define ADJ 4
 #define TAB_L 5
+#define MEDIA 6
 
 // Key positions reference (Corne, 42 keys):
 //
@@ -182,7 +183,7 @@
 &cv LC(V) LC(C)  &kp Q       &kp W       &kp E        &kp R        &kp T               &kp Y    &kp U        &kp I        &kp O       &kp P          &kp LBKT
 &kp ESC          &hml LGUI A &hml LALT S &hmls LSHFT D &hmlc LCTRL F &kp G               &kp H    &hmr LCTRL J &hmrs RSHFT K &hmr LALT L &hmr RGUI SEMI &kp SQT
 &kp TAB          &kp Z       &lt TAB_L X  &kp C        &kp V        &kp B               &kp N    &kp M        &kp COMMA    &lt TAB_L DOT &kp FSLH       &kp BSPC
-                                         &kp LGUI     &lt NUM RET  &lt SYM BSPC        &lt SYM SPACE  &lt NAV RET  &kp RALT
+                                         &lt MEDIA LGUI &lt NUM RET  &lt SYM BSPC        &lt SYM SPACE  &lt NAV RET  &kp RALT
             >;
         };
 
@@ -238,7 +239,18 @@
 &trans  &trans  &trans  &trans  &trans  &trans       &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans       &trans  &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans       &trans  &trans  &trans  &trans  &trans  &trans
-                        &trans  &kp TAB &trans       &trans  &kp TAB &trans
+                        &trans  &kp TAB &kp LG(TAB)  &trans  &kp TAB &trans
+            >;
+        };
+
+        // Media layer (held via left outer thumb)
+        // R = Volume Up, F = Volume Down
+        media_layer {
+            bindings = <
+&trans  &trans  &trans  &trans     &kp C_VOL_UP &trans       &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &kp C_VOL_DN &trans       &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans     &trans       &trans       &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans     &trans       &trans       &trans  &trans  &trans
             >;
         };
     };
